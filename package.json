@@ -1,28 +1,29 @@
 {
-  "name": "functional-js-framework",
+  "name": "smrt",
   "version": "0.0.1",
-  "description": "description here",
-  "main": "index.js",
+  "description": "Small Reactive Templating",
+  "main": "src/main.js",
   "scripts": {
     "serve": "parcel index.html",
     "test": "test here"
   },
   "repository": {
     "type": "git",
-    "url": "git repo here"
+    "url": "https://github.com/jjohnson1994/smrt"
   },
   "keywords": [
     "js",
-    "keywords"
+    "template",
+    "component",
+    "functional",
+    "reactive",
+    "state"
   ],
   "author": "James Johnson",
-  "license": "ISC",
+  "license": "GPL-3.0",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^2.30.0",
-    "@typescript-eslint/parser": "^2.30.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
-    "eslint-plugin-import": "^2.20.2",
-    "typescript": "^3.8.3"
+    "eslint-plugin-import": "^2.20.2"
   }
 }
