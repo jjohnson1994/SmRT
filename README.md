@@ -6,7 +6,7 @@ SMRT is a **SM**all library from building **R**eactive web **T**emplates.
 >
 > Homer J. Simpson
 
-(View the Code Playground here)[https://codesandbox.io/s/smrt-playground-xby6v?file=/src/index.js]
+[🎮 View the Code Playground here](https://codesandbox.io/s/smrt-playground-xby6v?file=/src/index.js)
 
 ## Getting Started
 
