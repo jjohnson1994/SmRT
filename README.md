@@ -44,4 +44,7 @@ const helloWorldApp = {
 const parent = document.querySelected('#app');
 myApp.run(helloWorldApp, parent, [myAppState]);
 ```
+
+**IMPORTANT** Notice how in the example above `userNameInput.value` and `appTitle.innerHTML` are functions that return a value from `helloWorldState`? This makes that part of your DOM reactive to state changes.
+
 [Further examples can be found here](https://github.com/jjohnson1994/smrt/tree/master/examples)
