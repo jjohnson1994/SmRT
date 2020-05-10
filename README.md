@@ -2,6 +2,10 @@
 
 SMRT is a **SM**all library from building **R**eactive web **T**emplates.
 
+> I am so smart, SMRT, I mean SMART.
+>
+> Homer J. Simpson
+
 ## Getting Started
 
 Add SMRT to your web page or app either as a package or as a script.
