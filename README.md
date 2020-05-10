@@ -61,8 +61,9 @@ myApp.run(helloWorldApp, parent, [myAppState]);
   - [Component Spec](#component-spec)
 
 ### Reactivity
+Component values can be reactive, or non reactive. A value will only be reacted to if it is read from a function in a components spec.
 
-### How Reactivity Works
+#### How Reactivity Works
 Reactivity works by replacing each value in a state with a pair of getters and setters. When a component is first rendered, any template updates that require a value from state are recorded again that state item (in an array of observers). Then when a state item is change, the recorded updates are replayed, keeping the DOM upto date.
 
 ### Creating Components
