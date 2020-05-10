@@ -38,6 +38,36 @@ const span = (innerHTML) => ({
 });
 
 /**
+ * Hello World
+ */
+const helloWorldState = {
+  userName: 'World',
+};
+
+const appTitle = {
+  tag: 'h1',
+  innerHTML: () => `Hello ${helloWorldState.userName} 👋`,
+};
+
+const userNameInput = {
+  tag: 'input',
+  value: () => helloWorldState.userName,
+  events: {
+    input: (event) => {
+      helloWorldState.userName = event.target.value;
+    },
+  },
+};
+
+const helloWorldApp = {
+  tag: 'div',
+  children: [
+    appTitle,
+    userNameInput,
+  ],
+};
+
+/**
   * Counter app
   */
 const counterState = {
@@ -144,6 +174,7 @@ const todoApp = div({
 
 const appMain = div({
   children: [
+    helloWorldApp,
     counterApp,
     todoApp,
   ],
@@ -151,4 +182,4 @@ const appMain = div({
 
 
 const parent = document.querySelector('#app');
-myApp.run(appMain, parent, [counterState, todoState]);
+myApp.run(appMain, parent, [helloWorldState, counterState, todoState]);
