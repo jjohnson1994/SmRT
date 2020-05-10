@@ -1,55 +1,46 @@
 # SMRT
 
-A small library from building reactive templates from functions and objects.
+SMRT is a **SM**all library from building **R**eactive web **T**emplates.
 
-### State with Getters and Setters
+## Getting Started
 
-SMRT uses getters and setters to track state updated, and update the DOM when needed.
+Add SMRT to your web page or app either as a package or as a script.
 
-In your application, the state might look something like this:
-``` javascript
-const state = {
-  userName: 'spacerangerjim',
-  latestScores: [20, 29, 30, 19],
-};
+`npm install smrt` or `<script src="https://unpkg.com/smrt"></script`
+
+## Example
 ```
+import smrt from 'smrt';
 
-SMRT will take this state and turn into the following object:
-```javascript
-const state = {
-  _userName: {
-    value: 'spacerangerjim',
-    observers: [],
-  },
-  _latestScores: [
-    {
-      value: 20,
-      observers: [],
-      get value() {
-        observers.push(currentCodeAction);
-        return value;
-      },
-      set value(newValue) {
-        value = newValue;
-      },
+const myApp = smrt();
+
+cosnt helloWorldState = {
+  userName: 'World',
+};
+
+const appTitle = {
+  tag: 'h1',
+  innerHTML: () => `Hello ${helloWorldState.userName} 👋`,
+};
+
+const userNameInput = {
+  tag: 'input',
+  value: () => helloWorldState.userName,
+  events: {
+    input: event => {
+      helloWorldState.userName = event.target.value;
     },
-    // ...
-  ],
-  get userName() {
-    _userName.observers.push(currentCodeAction);
-    return _userName.value;
-  },
-  set userName(newValue) {
-    _userName.value = newValue;
-  },
-  get latestScores() {
-    _latestScores.observers.push(currentCodeAction);
-    return latestScores;
-  },
-  set latestScores(newValue) {
-    _latestScores.value = makeArrayChildrenReactive(newValue);
   },
 };
-```
 
-Notice that whenever a Getter is accessed, the `currentCodeAction` is pushed into the `observers` array. This means actions like updating innerHTML can be re-run when state items are updated.
+const helloWorldApp = {
+  tag: 'div',
+  children: [
+    appTitle,
+    userNameInput,
+  ],
+};
+
+const parent = document.querySelected('#app');
+myApp.run(helloWorldApp, parent, [myAppState]);
+```
