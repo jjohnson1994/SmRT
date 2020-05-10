@@ -1,3 +1,7 @@
+# SMRT
+
+A small library from building reactive templates from functions and objects.
+
 ### State with Getters and Setters
 
 SMRT uses getters and setters to track state updated, and update the DOM when needed.
@@ -10,7 +14,7 @@ const state = {
 };
 ```
 
-FRAMEWORK will take this state and turn into the following object:
+SMRT will take this state and turn into the following object:
 ```javascript
 const state = {
   _userName: {
