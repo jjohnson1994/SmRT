@@ -44,3 +44,4 @@ const helloWorldApp = {
 const parent = document.querySelected('#app');
 myApp.run(helloWorldApp, parent, [myAppState]);
 ```
+[Further examples can be found here](https://github.com/jjohnson1994/smrt/tree/master/examples)
