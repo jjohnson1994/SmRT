@@ -2,15 +2,45 @@
 
 SMRT is a **SM**all library from building **R**eactive web **T**emplates.
 
-### Monitoring State with Getters and Setters
+## Getting Started
 
-SMRT uses getters and setters to track state updated, and update the DOM when needed.
+Add SMRT to your web page or app either as a package or as a script.
 
-In your application, the state might look something like this:
-``` javascript
-const state = {
-  userName: 'jjohnson94',
-};
+`npm install smrt` or `<script src="https://unpkg.com/smrt"></script`
+
+## Example
 ```
+import smrt from 'smrt';
 
-SMRT will take this state and replace any values with getters and setters. This way we know when a value has been accessed, and when a values has been updated.
+const myApp = smrt();
+
+cosnt helloWorldState = {
+  userName: 'World',
+};
+
+const appTitle = {
+  tag: 'h1',
+  innerHTML: () => `Hello ${helloWorldState.userName} 👋`,
+};
+
+const userNameInput = {
+  tag: 'input',
+  value: () => helloWorldState.userName,
+  events: {
+    input: event => {
+      helloWorldState.userName = event.target.value;
+    },
+  },
+};
+
+const helloWorldApp = {
+  tag: 'div',
+  children: [
+    appTitle,
+    userNameInput,
+  ],
+};
+
+const parent = document.querySelected('#app');
+myApp.run(helloWorldApp, parent, [myAppState]);
+```
