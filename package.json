@@ -1,11 +1,11 @@
 {
   "name": "smrt",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "Small Reactive Templating",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/main.js",
+  "types": "dist/main.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -p tsconfig-build.json",
     "serve": "parcel index.html",
     "test": "test here"
   },
