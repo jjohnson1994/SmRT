@@ -1,29 +1,29 @@
-import SMRT from '../src/main.ts';
-import { div, button, checkbox, h1, span } from './common-elements';
+import SMRT from "../src/main.ts";
+import { div, button, checkbox, h1, span } from "./common-elements";
 
 const myApp = new SMRT();
 
 const todoState = {
-  newTodoTitle: '',
-  todos: [{ id: 0, title: 'Write something cool', done: true }],
+  newTodoTitle: "",
+  todos: [{ id: 0, title: "Write something cool", done: true }],
 };
 
-const edtNewTodo = ({
-  tag: 'input',
+const edtNewTodo = {
+  tag: "input",
   value: () => todoState.newTodoTitle,
   attrs: {
-    type: 'text',
-    placeholder: 'New Todo',
+    type: "text",
+    placeholder: "New Todo",
   },
   events: {
     input: (event) => {
       todoState.newTodoTitle = event.target.value;
     },
   },
-});
+};
 
 const btnSaveNewTodo = button({
-  innerHTML: 'Save',
+  innerHTML: "Save",
   click: () => {
     const newTodos = todoState.todos.concat({
       title: todoState.newTodoTitle,
@@ -31,7 +31,7 @@ const btnSaveNewTodo = button({
     });
 
     todoState.todos = newTodos;
-    todoState.newTodoTitle = '';
+    todoState.newTodoTitle = "";
   },
 });
 
@@ -40,38 +40,34 @@ const todoOnClick = (event, todo, index) => {
 };
 
 const todoListItem = (todo, index) => ({
-  tag: 'li',
-  children: () => ([
+  tag: "li",
+  children: () => [
     {
-      tag: 'label',
-      children: () => ([
+      tag: "label",
+      children: () => [
         checkbox({
           checked: () => todo.done,
           onChange: (event) => todoOnClick(event, todo, index),
         }),
         span(() => todo.title),
-      ]),
+      ],
     },
-  ]),
+  ],
 });
 
 const todosList = div({
   children: [
     {
-      tag: 'ul',
-      children: () => todoState.todos.map((todo, index) => todoListItem(todo, index)),
+      tag: "ul",
+      children: () =>
+        todoState.todos.map((todo, index) => todoListItem(todo, index)),
     },
   ],
 });
 
 const todoApp = div({
-  children: [
-    h1('Todos'),
-    edtNewTodo,
-    btnSaveNewTodo,
-    todosList,
-  ],
+  children: [h1("Todos"), edtNewTodo, btnSaveNewTodo, todosList],
 });
 
-const parent = document.querySelector('#todoContainer');
+const parent = document.querySelector("#todoContainer");
 myApp.run(todoApp, parent, [todoState]);
