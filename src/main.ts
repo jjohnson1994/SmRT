@@ -1,7 +1,7 @@
 export interface IComponent {
   tag: string;
   attrs?: object;
-  children?: IComponent[];
+  children?: IComponent[] | (() => IComponent[]);
   events?: object;
   innerHTML?: string | (() => string | number);
   value?: string | number;
@@ -23,7 +23,7 @@ function SMRT(): ISMRT {
     return typeof toRead === "function" ? toRead() : toRead;
   }
 
-  function makeStateReactive(state: object, depth = 0) {
+  function makeStateReactive(state: { [key: string]: any }, depth = 0) {
     if (depth > 1) {
       return state;
     }
@@ -122,7 +122,7 @@ function SMRT(): ISMRT {
       codeAction = () => {
         newElement.innerHTML = "";
 
-        children().forEach((child) => {
+        children().forEach((child: IComponent) => {
           actualiseComponent(child, newElement);
         });
       };
