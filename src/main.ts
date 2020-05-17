@@ -11,6 +11,11 @@ interface ISMRT {
   run: (main: IComponent, parent: HTMLElement, states: object[]) => void;
 }
 
+interface IStateItem {
+  value: any;
+  observers: (() => void)[];
+}
+
 function SMRT(): ISMRT {
   let codeAction: (() => void) | undefined;
 
@@ -35,11 +40,12 @@ function SMRT(): ISMRT {
         });
       }
 
-      const newStateItem = {
+      const newStateItem: IStateItem = {
         value,
         observers: [],
       };
 
+      // eslint-disable-next-line no-param-reassign
       delete state[key];
 
       Object.defineProperty(state, key, {
@@ -88,7 +94,7 @@ function SMRT(): ISMRT {
 
     if (value) {
       codeAction = () => {
-        newElement.value = readFunctionOrConst(value);
+        (newElement as HTMLInputElement).value = readFunctionOrConst(value);
       };
 
       codeAction();

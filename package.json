@@ -2,8 +2,10 @@
   "name": "smrt",
   "version": "0.0.2",
   "description": "Small Reactive Templating",
-  "main": "src/main.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
+    "build": "tsc",
     "serve": "parcel index.html",
     "test": "test here"
   },
