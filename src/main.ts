@@ -1,21 +1,36 @@
-export default () => {
-  let codeAction = '';
+export interface IComponent {
+  tag: string;
+  attrs?: object;
+  children?: IComponent[];
+  events?: object;
+  innerHTML?: string | (() => string | number);
+  value?: string | number;
+}
 
-  const readFunctionOrConst = (toRead) => (typeof toRead === 'function' ? toRead() : toRead);
+interface ISMRT {
+  run: (main: IComponent, parent: HTMLElement, states: object[]) => void;
+}
 
-  function makeStateReactive(state, depth = 0) {
+function SMRT(): ISMRT {
+  let codeAction: () => void;
+
+  function readFunctionOrConst(toRead: any) {
+    return (typeof toRead === 'function' ? toRead() : toRead);
+  }
+
+  function makeStateReactive(state: object, depth = 0) {
     if (depth > 1) {
       return state;
     }
 
     return Object.entries(state).forEach(([key, value]) => {
-      // TODO dupe on line
+      // TODO dupe on line 48
       if (Array.isArray(value)) {
         value.forEach((childValue) => {
           makeStateReactive(childValue);
         });
       } else if (typeof value === 'object') {
-        Object.values(value).forEach((childValue) => {
+        Object.values(value).forEach((childValue: any) => {
           makeStateReactive(childValue);
         });
       }
@@ -29,7 +44,7 @@ export default () => {
 
       Object.defineProperty(state, key, {
         get() {
-          if (codeAction) {
+          if (codeAction !== undefined) {
             newStateItem.observers.push(codeAction);
           }
 
@@ -38,12 +53,13 @@ export default () => {
         set(newValue) {
           newStateItem.value = newValue;
 
+          // TODO dupe on line 19
           if (Array.isArray(value)) {
-            newStateItem.value.forEach((childValue) => {
+            newStateItem.value.forEach((childValue: any) => {
               makeStateReactive(childValue);
             });
           } else if (typeof value === 'object') {
-            Object.values(newStateItem.value).forEach((childValue) => {
+            Object.values(newStateItem.value).forEach((childValue: any) => {
               makeStateReactive(childValue);
             });
           }
@@ -56,7 +72,7 @@ export default () => {
     });
   }
 
-  function actualiseComponent(component, parentNode) {
+  function actualiseComponent(component: IComponent, parentNode: HTMLElement) {
     const {
       tag, children, innerHTML, events, attrs, value,
     } = component;
@@ -118,10 +134,12 @@ export default () => {
     parentNode.appendChild(newElement);
   }
 
-  function run(main, parent, states) {
+  function run(main: IComponent, parent: HTMLElement, states: object[]) {
     states.forEach((state) => makeStateReactive(state));
     actualiseComponent(main, parent);
   }
 
   return { run };
-};
+}
+
+export default SMRT;

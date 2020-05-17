@@ -1,7 +1,7 @@
-import SMRT from '../src/main';
+import SMRT from '../src/main.ts';
 import { div, button, checkbox, h1, span } from './common-elements';
 
-const myApp = SMRT();
+const myApp = new SMRT();
 
 const todoState = {
   newTodoTitle: '',

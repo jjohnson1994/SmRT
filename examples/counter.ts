@@ -1,5 +1,20 @@
-import SMRT from '../src/main';
-import { div, h1, button } from './common-elements';
+import SMRT, { IComponent } from '../src/main';
+
+const div = ({ children }): IComponent => ({
+  tag: 'div',
+  children,
+});
+
+const h1 = (innerHTML: string): IComponent => ({
+  tag: 'h1',
+  innerHTML,
+});
+
+const button = ({ innerHTML, click }): IComponent => ({
+  tag: 'button',
+  innerHTML,
+  events: { click },
+});
 
 const myApp = SMRT();
 
@@ -31,5 +46,5 @@ const counterApp = div({
   ],
 });
 
-const parent = document.querySelector('#counterContainer');
+const parent: HTMLElement = document.querySelector('#counterContainer');
 myApp.run(counterApp, parent, [counterState]);
