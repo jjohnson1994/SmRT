@@ -12,10 +12,10 @@ interface ISMRT {
 }
 
 function SMRT(): ISMRT {
-  let codeAction: () => void;
+  let codeAction: (() => void) | undefined;
 
   function readFunctionOrConst(toRead: any) {
-    return (typeof toRead === 'function' ? toRead() : toRead);
+    return typeof toRead === "function" ? toRead() : toRead;
   }
 
   function makeStateReactive(state: object, depth = 0) {
@@ -29,7 +29,7 @@ function SMRT(): ISMRT {
         value.forEach((childValue) => {
           makeStateReactive(childValue);
         });
-      } else if (typeof value === 'object') {
+      } else if (typeof value === "object") {
         Object.values(value).forEach((childValue: any) => {
           makeStateReactive(childValue);
         });
@@ -58,7 +58,7 @@ function SMRT(): ISMRT {
             newStateItem.value.forEach((childValue: any) => {
               makeStateReactive(childValue);
             });
-          } else if (typeof value === 'object') {
+          } else if (typeof value === "object") {
             Object.values(newStateItem.value).forEach((childValue: any) => {
               makeStateReactive(childValue);
             });
@@ -73,9 +73,7 @@ function SMRT(): ISMRT {
   }
 
   function actualiseComponent(component: IComponent, parentNode: HTMLElement) {
-    const {
-      tag, children, innerHTML, events, attrs, value,
-    } = component;
+    const { tag, children, innerHTML, events, attrs, value } = component;
 
     const newElement = document.createElement(tag);
 
@@ -114,9 +112,9 @@ function SMRT(): ISMRT {
       });
     }
 
-    if (typeof children === 'function') {
+    if (typeof children === "function") {
       codeAction = () => {
-        newElement.innerHTML = '';
+        newElement.innerHTML = "";
 
         children().forEach((child) => {
           actualiseComponent(child, newElement);
@@ -125,7 +123,8 @@ function SMRT(): ISMRT {
 
       codeAction();
       codeAction = undefined;
-    } if (Array.isArray(children)) {
+    }
+    if (Array.isArray(children)) {
       children.forEach((child) => {
         actualiseComponent(child, newElement);
       });

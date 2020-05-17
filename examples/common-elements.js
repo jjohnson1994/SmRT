@@ -1,24 +1,24 @@
 export const div = ({ children }) => ({
-  tag: 'div',
+  tag: "div",
   children,
 });
 
 export const button = ({ innerHTML, click }) => ({
-  tag: 'button',
+  tag: "button",
   innerHTML,
   events: { click },
 });
 
 export const h1 = (innerHTML) => ({
-  tag: 'h1',
+  tag: "h1",
   innerHTML,
 });
 
 export const checkbox = ({ checked, onChange }) => ({
-  tag: 'input',
+  tag: "input",
   attrs: {
-    type: 'checkbox',
-    ...(checked() === true && { checked: 'checked' }),
+    type: "checkbox",
+    ...(checked() === true && { checked: "checked" }),
   },
   events: {
     change: onChange,
@@ -26,6 +26,6 @@ export const checkbox = ({ checked, onChange }) => ({
 });
 
 export const span = (innerHTML) => ({
-  tag: 'span',
+  tag: "span",
   innerHTML,
 });

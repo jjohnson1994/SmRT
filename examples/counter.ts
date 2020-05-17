@@ -1,17 +1,23 @@
-import SMRT, { IComponent } from '../src/main';
+import SMRT, { IComponent } from "../src/main";
 
-const div = ({ children }): IComponent => ({
-  tag: 'div',
+const div = ({ children }: { children: IComponent[] }): IComponent => ({
+  tag: "div",
   children,
 });
 
 const h1 = (innerHTML: string): IComponent => ({
-  tag: 'h1',
+  tag: "h1",
   innerHTML,
 });
 
-const button = ({ innerHTML, click }): IComponent => ({
-  tag: 'button',
+const button = ({
+  innerHTML,
+  click,
+}: {
+  innerHTML: string;
+  click: () => void;
+}): IComponent => ({
+  tag: "button",
   innerHTML,
   events: { click },
 });
@@ -22,23 +28,23 @@ const counterState = {
   count: 0,
 };
 
-const lblCount = ({
-  tag: 'p',
+const lblCount = {
+  tag: "p",
   innerHTML: () => counterState.count,
-});
+};
 
 const counterApp = div({
   children: [
-    h1('Counter'),
+    h1("Counter"),
     lblCount,
     button({
-      innerHTML: 'Add',
+      innerHTML: "Add",
       click: () => {
         counterState.count += 1;
       },
     }),
     button({
-      innerHTML: 'Subtract',
+      innerHTML: "Subtract",
       click: () => {
         counterState.count -= 1;
       },
@@ -46,5 +52,8 @@ const counterApp = div({
   ],
 });
 
-const parent: HTMLElement = document.querySelector('#counterContainer');
-myApp.run(counterApp, parent, [counterState]);
+const parent: HTMLElement | null = document.querySelector("#counterContainer");
+
+if (parent !== null) {
+  myApp.run(counterApp, parent, [counterState]);
+}
